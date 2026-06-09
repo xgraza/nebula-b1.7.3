@@ -47,6 +47,7 @@ public final class ModuleManager implements ITypedManager<Module>
         registerModule(JesusModule.class);
         registerModule(NoPushModule.class);
         registerModule(SpeedModule.class);
+        registerModule(StepModule.class);
 
         // Player
         registerModule(NoFallModule.class);
