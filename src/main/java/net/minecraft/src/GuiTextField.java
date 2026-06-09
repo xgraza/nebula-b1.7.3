@@ -2,8 +2,8 @@ package net.minecraft.src;
 
 public class GuiTextField extends Gui {
 	private final FontRenderer fontRenderer;
-	private final int xPos;
-	private final int yPos;
+	public final int xPos;
+	public final int yPos;
 	private final int width;
 	private final int height;
 	private String text;

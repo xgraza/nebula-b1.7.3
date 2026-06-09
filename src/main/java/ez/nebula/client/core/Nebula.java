@@ -3,6 +3,7 @@ package ez.nebula.client.core;
 import ez.nebula.client.BuildConfig;
 import ez.nebula.client.api.config.ConfigManager;
 import ez.nebula.client.api.logger.Logger;
+import ez.nebula.client.api.manager.account.AccountManager;
 import ez.nebula.client.api.manager.friend.FriendManager;
 import ez.nebula.client.api.manager.key.KeyManager;
 import ez.nebula.client.api.manager.macro.MacroManager;
@@ -29,6 +30,7 @@ public enum Nebula
     private final MacroManager macroManager = new MacroManager();
     private final ModuleManager moduleManager = new ModuleManager();
     private final FriendManager friendManager = new FriendManager();
+    private final AccountManager accountManager = new AccountManager();
 
     public void init(final File workingDirectory)
     {
@@ -55,6 +57,7 @@ public enum Nebula
         macroManager.init();
         moduleManager.init();
         friendManager.init();
+        accountManager.init();
 
         Logger.info("Loading configurations");
         configManager.init();
@@ -76,6 +79,11 @@ public enum Nebula
     public ModuleManager getModuleManager()
     {
         return moduleManager;
+    }
+
+    public AccountManager getAccountManager()
+    {
+        return accountManager;
     }
 
     public File getNebulaDirectory()

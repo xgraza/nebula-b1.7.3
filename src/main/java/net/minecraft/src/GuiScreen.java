@@ -11,7 +11,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 public class GuiScreen extends Gui {
-	protected Minecraft mc;
+	public static Minecraft mc;
 	public int width;
 	public int height;
 	protected List controlList = new ArrayList();

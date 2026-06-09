@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+
+import ez.nebula.client.impl.gui.account.AccountSelectorScreen;
 import org.lwjgl.opengl.GL11;
 
 public class GuiMainMenu extends GuiScreen {
@@ -63,11 +65,14 @@ public class GuiMainMenu extends GuiScreen {
 		this.controlList.add(new GuiButton(1, this.width / 2 - 100, var4, var2.translateKey("menu.singleplayer")));
 		this.controlList.add(this.multiplayerButton = new GuiButton(2, this.width / 2 - 100, var4 + 24, var2.translateKey("menu.multiplayer")));
 		this.controlList.add(new GuiButton(3, this.width / 2 - 100, var4 + 48, var2.translateKey("menu.mods")));
+
+        controlList.add(new GuiButton(69420, width / 2 - 100, var4 + 72, "Account Manager"));
+
 		if(this.mc.hideQuitButton) {
-			this.controlList.add(new GuiButton(0, this.width / 2 - 100, var4 + 72, var2.translateKey("menu.options")));
+			this.controlList.add(new GuiButton(0, this.width / 2 - 100, var4 + 72 + 12, var2.translateKey("menu.options")));
 		} else {
-			this.controlList.add(new GuiButton(0, this.width / 2 - 100, var4 + 72 + 12, 98, 20, var2.translateKey("menu.options")));
-			this.controlList.add(new GuiButton(4, this.width / 2 + 2, var4 + 72 + 12, 98, 20, var2.translateKey("menu.quit")));
+			this.controlList.add(new GuiButton(0, this.width / 2 - 100, var4 + 72 + 24, 98, 20, var2.translateKey("menu.options")));
+			this.controlList.add(new GuiButton(4, this.width / 2 + 2, var4 + 72 + 24, 98, 20, var2.translateKey("menu.quit")));
 		}
 
 		if(this.mc.session == null) {
@@ -97,6 +102,10 @@ public class GuiMainMenu extends GuiScreen {
 			this.mc.shutdown();
 		}
 
+        if (var1.id == 69420)
+        {
+            mc.displayGuiScreen(new AccountSelectorScreen());
+        }
 	}
 
 	public void drawScreen(int var1, int var2, float var3) {

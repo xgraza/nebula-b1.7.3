@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
 public class GuiYesNo extends GuiScreen {
-	private GuiScreen parentScreen;
+	protected GuiScreen parentScreen;
 	private String message1;
 	private String message2;
 	private String field_22106_k;
