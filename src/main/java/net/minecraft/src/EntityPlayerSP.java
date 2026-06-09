@@ -3,6 +3,7 @@ package net.minecraft.src;
 import ez.nebula.client.api.listener.EventBus;
 import ez.nebula.client.api.listener.event.EventMove;
 import ez.nebula.client.api.listener.event.EventUpdate;
+import ez.nebula.client.impl.module.exploit.PortalGUIModule;
 import ez.nebula.client.impl.module.movement.NoPushModule;
 import net.minecraft.client.Minecraft;
 
@@ -52,7 +53,7 @@ public class EntityPlayerSP extends EntityPlayer {
 				this.mountEntity((Entity)null);
 			}
 
-			if(this.mc.currentScreen != null) {
+			if(this.mc.currentScreen != null && !PortalGUIModule.INSTANCE.isToggled()) {
 				this.mc.displayGuiScreen((GuiScreen)null);
 			}
 

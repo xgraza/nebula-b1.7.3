@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import ez.nebula.client.impl.module.exploit.TimerModule;
+
 public class Timer {
 	public float ticksPerSecond;
 	private double lastHRTime;
@@ -53,7 +55,13 @@ public class Timer {
 			var13 = 1.0D;
 		}
 
-		this.elapsedPartialTicks = (float)((double)this.elapsedPartialTicks + var13 * (double)this.timerSpeed * (double)this.ticksPerSecond);
+        float speed = timerSpeed;
+        if (TimerModule.INSTANCE.isToggled())
+        {
+            speed = TimerModule.INSTANCE.speedSetting.getValue();
+        }
+
+		this.elapsedPartialTicks = (float)((double)this.elapsedPartialTicks + var13 * (double)speed * (double)this.ticksPerSecond);
 		this.elapsedTicks = (int)this.elapsedPartialTicks;
 		this.elapsedPartialTicks -= (float)this.elapsedTicks;
 		if(this.elapsedTicks > 10) {

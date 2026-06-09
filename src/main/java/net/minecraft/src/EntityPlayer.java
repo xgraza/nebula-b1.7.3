@@ -31,7 +31,7 @@ public abstract class EntityPlayer extends EntityLiving {
 	private ChunkCoordinates playerSpawnCoordinate;
 	private ChunkCoordinates startMinecartRidingCoordinate;
 	public int timeUntilPortal = 20;
-	protected boolean inPortal = false;
+	public boolean inPortal = false;
 	public float timeInPortal;
 	public float prevTimeInPortal;
 	private int damageRemainder = 0;

@@ -120,7 +120,7 @@ public abstract class Minecraft implements Runnable {
 	public int displayWidth;
 	public int displayHeight;
 	private OpenGlCapsChecker glCapabilities;
-	private Timer timer = new Timer(20.0F);
+	public final Timer timer = new Timer(20.0F);
 	public World theWorld;
 	public RenderGlobal renderGlobal;
 	public EntityPlayerSP thePlayer;
