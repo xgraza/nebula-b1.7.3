@@ -4,3 +4,4 @@ mcp/
 build/
 .gradle/
 nebula-logs/
+.DS_Store
