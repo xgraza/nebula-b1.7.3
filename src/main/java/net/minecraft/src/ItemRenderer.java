@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import ez.nebula.client.impl.module.render.NoRenderModule;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -322,6 +323,10 @@ public class ItemRenderer {
 	}
 
 	private void renderInsideOfBlock(float var1, int var2) {
+        if (NoRenderModule.INSTANCE.isToggled() && NoRenderModule.INSTANCE.blocksSetting.getValue())
+        {
+            return;
+        }
 		Tessellator var3 = Tessellator.instance;
 		this.mc.thePlayer.getEntityBrightness(var1);
 		float var4 = 0.1F;
@@ -348,6 +353,10 @@ public class ItemRenderer {
 	}
 
 	private void renderWarpedTextureOverlay(float var1) {
+        if (NoRenderModule.INSTANCE.isToggled() && NoRenderModule.INSTANCE.underWaterSetting.getValue())
+        {
+            return;
+        }
 		Tessellator var2 = Tessellator.instance;
 		float var3 = this.mc.thePlayer.getEntityBrightness(var1);
 		GL11.glColor4f(var3, var3, var3, 0.5F);
@@ -374,6 +383,10 @@ public class ItemRenderer {
 	}
 
 	private void renderFireInFirstPerson(float var1) {
+        if (NoRenderModule.INSTANCE.isToggled() && NoRenderModule.INSTANCE.fireSetting.getValue())
+        {
+            return;
+        }
 		Tessellator var2 = Tessellator.instance;
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.9F);
 		GL11.glEnable(GL11.GL_BLEND);

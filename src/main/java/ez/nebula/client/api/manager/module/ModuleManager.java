@@ -56,6 +56,7 @@ public final class ModuleManager implements ITypedManager<Module>
         registerModule(FoVModule.class);
         registerModule(FullbrightModule.class);
         registerModule(HUDModule.class);
+        registerModule(NoRenderModule.class);
         registerModule(NoWeatherModule.class);
         registerModule(XRayModule.class);
 

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import ez.nebula.client.impl.module.render.FoVModule;
+import ez.nebula.client.impl.module.render.NoRenderModule;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -157,6 +158,10 @@ public class EntityRenderer {
 	}
 
 	private void hurtCameraEffect(float var1) {
+        if (NoRenderModule.INSTANCE.isToggled() && NoRenderModule.INSTANCE.hurtCameraSetting.getValue())
+        {
+            return;
+        }
 		EntityLiving var2 = this.mc.renderViewEntity;
 		float var3 = (float)var2.hurtTime - var1;
 		float var4;

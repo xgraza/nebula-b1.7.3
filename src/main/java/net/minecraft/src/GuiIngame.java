@@ -7,6 +7,7 @@ import java.util.Random;
 
 import ez.nebula.client.api.listener.EventBus;
 import ez.nebula.client.api.listener.event.EventRender2D;
+import ez.nebula.client.impl.module.render.NoRenderModule;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -122,7 +123,7 @@ public class GuiIngame extends Gui {
 				}
 			}
 
-			if(this.mc.thePlayer.isInsideOfMaterial(Material.water)) {
+			if(this.mc.thePlayer.isInsideOfMaterial(Material.water) && !(NoRenderModule.INSTANCE.isToggled() && NoRenderModule.INSTANCE.underWaterSetting.getValue())) {
 				var16 = (int)Math.ceil((double)(this.mc.thePlayer.air - 2) * 10.0D / 300.0D);
 				var17 = (int)Math.ceil((double)this.mc.thePlayer.air * 10.0D / 300.0D) - var16;
 
@@ -267,6 +268,10 @@ public class GuiIngame extends Gui {
 	}
 
 	private void renderPumpkinBlur(int var1, int var2) {
+        if (NoRenderModule.INSTANCE.isToggled() && NoRenderModule.INSTANCE.pumpkinSetting.getValue())
+        {
+            return;
+        }
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthMask(false);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

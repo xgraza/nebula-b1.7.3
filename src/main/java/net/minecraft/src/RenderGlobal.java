@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import ez.nebula.client.impl.module.render.NoRenderModule;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.ARBOcclusionQuery;
 import org.lwjgl.opengl.GL11;
@@ -723,6 +725,11 @@ public class RenderGlobal implements IWorldAccess {
 	}
 
 	public void renderClouds(float var1) {
+        if (NoRenderModule.INSTANCE.isToggled() && NoRenderModule.INSTANCE.cloudsSetting.getValue())
+        {
+            return;
+        }
+
 		if(!this.mc.theWorld.worldProvider.isNether) {
 			if(this.mc.gameSettings.fancyGraphics) {
 				this.renderCloudsFancy(var1);
