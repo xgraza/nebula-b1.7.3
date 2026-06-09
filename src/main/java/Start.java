@@ -4,6 +4,7 @@ public class Start
 {
     public static void main(String[] args)
     {
-        Minecraft.func_6269_a("Aestheticall", "");
+        Minecraft.func_6269_a("Player0", "");
+        //Minecraft.func_6269_a("Aestheticall", "");
     }
 }
