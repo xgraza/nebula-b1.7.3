@@ -184,9 +184,10 @@ public class Module implements Toggleable, IJSONSerializable, SettingProvider
             {
                 return;
             }
+            final JsonObject settingsObject = settingsElement.getAsJsonObject();
             for (final String name : settingNameMap.keySet())
             {
-                getSetting(name).fromJSON(settingsElement);
+                getSetting(name).fromJSON(settingsObject.get(name));
             }
         }
     }
