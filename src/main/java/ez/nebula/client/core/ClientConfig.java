@@ -13,7 +13,7 @@ public final class ClientConfig
     public static final String VERSION = String.format("%s/%s-%s",
             SHORT_VERSION, BuildConfig.BRANCH, BuildConfig.HASH);
 
-    public static final String GITHUB_REPO = "https://github.com/xgraza/nebula-b1.7.2/tree/"
+    public static final String GITHUB_REPO = "https://github.com/xgraza/nebula-b1.7.3/tree/"
             + BuildConfig.BRANCH;
 
     /**
