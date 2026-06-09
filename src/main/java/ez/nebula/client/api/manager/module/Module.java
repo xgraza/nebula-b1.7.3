@@ -33,7 +33,7 @@ public class Module implements Toggleable, IJSONSerializable, SettingProvider
 
     private final ModuleManifest manifest;
     private final Key key;
-    private boolean toggled;
+    private boolean toggled, visible = true;
 
     public Module()
     {
@@ -126,6 +126,16 @@ public class Module implements Toggleable, IJSONSerializable, SettingProvider
         return toggled;
     }
 
+    public boolean isVisible()
+    {
+        return visible;
+    }
+
+    public void setVisible(boolean visible)
+    {
+        this.visible = visible;
+    }
+
     @Override
     public void registerSetting(final Setting<?> setting)
     {
@@ -157,6 +167,10 @@ public class Module implements Toggleable, IJSONSerializable, SettingProvider
         {
             setToggled(object.get("toggled").getAsBoolean());
         }
+        if (object.has("visible"))
+        {
+            setVisible(object.get("visible").getAsBoolean());
+        }
         if (object.has("key"))
         {
             key.fromJSON(object.get("key"));
@@ -180,6 +194,7 @@ public class Module implements Toggleable, IJSONSerializable, SettingProvider
     {
         final JsonObject object = new JsonObject();
         object.addProperty("toggled", toggled);
+        object.addProperty("visible", visible);
         object.add("key", key.toJSON());
         if (!settingNameMap.isEmpty())
         {
