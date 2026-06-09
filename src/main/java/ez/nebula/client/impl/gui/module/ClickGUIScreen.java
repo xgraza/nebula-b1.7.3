@@ -79,6 +79,16 @@ public final class ClickGUIScreen extends GuiScreen
     }
 
     @Override
+    protected void keyTyped(char typedChar, int keyCode)
+    {
+        super.keyTyped(typedChar, keyCode);
+        for (final CategoryPanel panel : panelList)
+        {
+            panel.keyTyped(typedChar, keyCode);
+        }
+    }
+
+    @Override
     public void onGuiClosed()
     {
         Nebula.INSTANCE.getConfigManager().saveConfigs();

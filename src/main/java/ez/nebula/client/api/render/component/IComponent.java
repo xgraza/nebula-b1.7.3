@@ -59,6 +59,11 @@ public interface IComponent
 
     }
 
+    default void keyTyped(final char typedChar, final int keyCode)
+    {
+
+    }
+
     default boolean isMouseIn(final int mouseX, final int mouseY)
     {
         return getX() <= mouseX && getX() + getWidth() >= mouseX

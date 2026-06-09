@@ -1,11 +1,15 @@
 package ez.nebula.client.impl.gui.module;
 
+import ez.nebula.client.api.manager.key.Key;
 import ez.nebula.client.api.manager.module.Module;
 import ez.nebula.client.api.render.component.IComponent;
 import ez.nebula.client.api.setting.EnumSetting;
+import ez.nebula.client.api.setting.NumberSetting;
 import ez.nebula.client.api.setting.Setting;
 import ez.nebula.client.impl.gui.module.setting.BooleanComponent;
 import ez.nebula.client.impl.gui.module.setting.EnumComponent;
+import ez.nebula.client.impl.gui.module.setting.KeyComponent;
+import ez.nebula.client.impl.gui.module.setting.NumberComponent;
 import ez.nebula.client.util.render.RenderUtil;
 
 import java.awt.Color;
@@ -28,6 +32,8 @@ public class ModuleComponent implements IComponent
     {
         this.module = module;
 
+        getChildren().add(new KeyComponent("Bind", module.getKey()));
+
         for (final Setting<?> setting : module.getSettings())
         {
             if (Boolean.class.isAssignableFrom(setting.getType()))
@@ -36,6 +42,12 @@ public class ModuleComponent implements IComponent
             } else if (Enum.class.isAssignableFrom(setting.getType()))
             {
                 getChildren().add(new EnumComponent((EnumSetting<?>) setting));
+            } else if (Number.class.isAssignableFrom(setting.getType()))
+            {
+                getChildren().add(new NumberComponent((NumberSetting<?>) setting));
+            } else if (Key.class.isAssignableFrom(setting.getType()))
+            {
+                getChildren().add(new KeyComponent(setting.getName(), (Key) setting.getValue()));
             }
         }
     }
@@ -94,6 +106,19 @@ public class ModuleComponent implements IComponent
                     component.mouseClicked(mouseX, mouseY, mouseButton);
                 }
             }
+        }
+    }
+
+    @Override
+    public void keyTyped(char typedChar, int keyCode)
+    {
+        if (!opened)
+        {
+            return;
+        }
+        for (final IComponent component : getChildren())
+        {
+            component.keyTyped(typedChar, keyCode);
         }
     }
 

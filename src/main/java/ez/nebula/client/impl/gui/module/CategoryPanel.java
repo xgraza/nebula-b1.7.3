@@ -63,6 +63,15 @@ public final class CategoryPanel implements IComponent
     }
 
     @Override
+    public void keyTyped(char typedChar, int keyCode)
+    {
+        for (final IComponent component : getChildren())
+        {
+            component.keyTyped(typedChar, keyCode);
+        }
+    }
+
+    @Override
     public double getX()
     {
         return x;

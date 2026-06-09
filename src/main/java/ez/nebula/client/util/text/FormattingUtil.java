@@ -1,5 +1,7 @@
 package ez.nebula.client.util.text;
 
+import org.lwjgl.input.Keyboard;
+
 import java.util.StringJoiner;
 import java.util.TreeMap;
 
@@ -38,6 +40,26 @@ public final class FormattingUtil
             return ROMAN_NUMERALS_MAP.get(number);
         }
         return ROMAN_NUMERALS_MAP.get(floored) + formatRomanNumeral(number - floored);
+    }
+
+    public static String formatKey(final int keyCode, final boolean keyboard)
+    {
+        if (keyboard)
+        {
+            final String name = Keyboard.getKeyName(keyCode);
+            if (name == null || name.isEmpty())
+            {
+                return "NONE";
+            }
+            return name;
+        } else
+        {
+            if (keyCode == -1)
+            {
+                return "NONE";
+            }
+            return "Mouse " + (keyCode + 1);
+        }
     }
 
     public static String formatEnum(final Enum<?> e)
