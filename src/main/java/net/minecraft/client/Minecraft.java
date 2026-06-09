@@ -87,7 +87,6 @@ import net.minecraft.src.TexturePortalFX;
 import net.minecraft.src.TextureWatchFX;
 import net.minecraft.src.TextureWaterFX;
 import net.minecraft.src.TextureWaterFlowFX;
-import net.minecraft.src.ThreadCheckHasPaid;
 import net.minecraft.src.ThreadDownloadResources;
 import net.minecraft.src.ThreadSleepForever;
 import net.minecraft.src.Timer;
@@ -1020,15 +1019,7 @@ public abstract class Minecraft implements Runnable {
 
 	}
 
-	private void func_28001_B() {
-		(new ThreadCheckHasPaid(this)).start();
-	}
-
 	public void runTick() {
-		if(this.ticksRan == 6000) {
-			this.func_28001_B();
-		}
-
 		this.statFileWriter.func_27178_d();
 		this.ingameGUI.updateTick();
 		this.entityRenderer.getMouseOver(1.0F);
