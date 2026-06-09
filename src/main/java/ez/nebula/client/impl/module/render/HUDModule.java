@@ -10,6 +10,7 @@ import ez.nebula.client.api.manager.module.trait.ModuleManifest;
 import ez.nebula.client.api.setting.Setting;
 import ez.nebula.client.core.ClientConfig;
 import ez.nebula.client.core.Nebula;
+import net.minecraft.src.EntityPlayer;
 
 import java.util.Comparator;
 import java.util.List;
@@ -29,6 +30,9 @@ public final class HUDModule extends Module
             .build();
     private final Setting<Boolean> arrayListSetting = builder("Arraylist", true)
             .setDescription("If to show all toggled modules")
+            .build();
+    private final Setting<Boolean> radarSetting = builder("Radar", false)
+            .setDescription("If to show nearby players")
             .build();
 
     public HUDModule()
@@ -62,6 +66,22 @@ public final class HUDModule extends Module
                 final int textWidth = MC.fontRenderer.getStringWidth(text);
 
                 MC.fontRenderer.drawStringWithShadow(text, event.getResolution().getScaledWidth() - textWidth - 2, posY, -1);
+                posY += 11;
+            }
+        }
+
+        if (radarSetting.getValue())
+        {
+            final List<EntityPlayer> playerList = ((List<EntityPlayer>) MC.theWorld.playerEntities)
+                    .stream()
+                    .filter((player) -> !MC.thePlayer.equals(player))
+                    .sorted(Comparator.comparingDouble((player) -> MC.thePlayer.getDistanceToEntity(player)))
+                    .collect(Collectors.toList());
+            int posY = watermarkSetting.getValue() ? 20 : 4;
+            for (final EntityPlayer player : playerList)
+            {
+                final String text = String.format("> %.2f - %s", MC.thePlayer.getDistanceToEntity(player), player.username);
+                MC.fontRenderer.drawStringWithShadow(text, 6, posY, -1);
                 posY += 11;
             }
         }
