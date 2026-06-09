@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import ez.nebula.client.api.listener.EventBus;
+import ez.nebula.client.api.listener.event.EventRender2D;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -259,6 +262,8 @@ public class GuiIngame extends Gui {
 		GL11.glPopMatrix();
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glDisable(GL11.GL_BLEND);
+
+        EventBus.dispatch(new EventRender2D(var5));
 	}
 
 	private void renderPumpkinBlur(int var1, int var2) {

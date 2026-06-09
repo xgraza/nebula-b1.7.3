@@ -3,6 +3,8 @@ package net.minecraft.src;
 import java.nio.FloatBuffer;
 import java.util.List;
 import java.util.Random;
+
+import ez.nebula.client.impl.module.render.FoVModule;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -145,6 +147,11 @@ public class EntityRenderer {
 			float var4 = (float)var2.deathTime + var1;
 			var3 /= (1.0F - 500.0F / (var4 + 500.0F)) * 2.0F + 1.0F;
 		}
+
+        if (FoVModule.INSTANCE.isToggled())
+        {
+            var3 = FoVModule.INSTANCE.fovSetting.getValue();
+        }
 
 		return var3 + this.field_22221_y + (this.field_22222_x - this.field_22221_y) * var1;
 	}

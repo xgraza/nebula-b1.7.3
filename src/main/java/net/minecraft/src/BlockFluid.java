@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import ez.nebula.client.impl.module.movement.JesusModule;
+
 import java.util.Random;
 
 public abstract class BlockFluid extends Block {
@@ -68,6 +70,16 @@ public abstract class BlockFluid extends Block {
 	}
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+        if (JesusModule.INSTANCE.isToggled() && JesusModule.INSTANCE.shouldMakeWaterSolid())
+        {
+            return AxisAlignedBB.getBoundingBoxFromPool(
+                    (double)var2 + this.minX,
+                    (double)var3 + this.minY,
+                    (double)var4 + this.minZ,
+                    (double)var2 + this.maxX,
+                    (double)var3 + maxY,
+                    (double)var4 + this.maxZ);
+        }
 		return null;
 	}
 

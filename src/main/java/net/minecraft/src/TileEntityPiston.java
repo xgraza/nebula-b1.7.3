@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import ez.nebula.client.impl.module.movement.NoPushModule;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -81,6 +83,12 @@ public class TileEntityPiston extends TileEntity {
 
 				while(var5.hasNext()) {
 					Entity var6 = (Entity)var5.next();
+                    if (var6 instanceof EntityPlayerSP
+                            && NoPushModule.INSTANCE.isToggled()
+                            && NoPushModule.INSTANCE.pistonsSetting.getValue())
+                    {
+                        continue;
+                    }
 					var6.moveEntity((double)(var2 * (float)PistonBlockTextures.field_31056_b[this.field_31025_c]), (double)(var2 * (float)PistonBlockTextures.field_31059_c[this.field_31025_c]), (double)(var2 * (float)PistonBlockTextures.field_31058_d[this.field_31025_c]));
 				}
 

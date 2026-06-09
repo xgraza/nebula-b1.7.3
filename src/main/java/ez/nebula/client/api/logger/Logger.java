@@ -9,7 +9,7 @@ import java.util.Date;
 public final class Logger
 {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd kk:mm");
-    private static final BufferedWriter fileWriter;
+    private static BufferedWriter fileWriter;
 
     static
     {
@@ -136,6 +136,7 @@ public final class Logger
         }
         fileWriter.flush();
         fileWriter.close();
+        fileWriter = null;
     }
 
     private static String removeAnsiColors(final String input)

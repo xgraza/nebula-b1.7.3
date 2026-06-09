@@ -1267,7 +1267,7 @@ public class RenderGlobal implements IWorldAccess {
 			var10 *= var8;
 		}
 
-		if(this.mc.renderViewEntity.getDistanceSq(var2, var4, var6) < (double)(var10 * var10)) {
+		if(mc.renderViewEntity != null && this.mc.renderViewEntity.getDistanceSq(var2, var4, var6) < (double)(var10 * var10)) {
 			this.mc.sndManager.playSound(var1, (float)var2, (float)var4, (float)var6, var8, var9);
 		}
 

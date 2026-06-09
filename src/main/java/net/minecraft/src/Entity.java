@@ -38,7 +38,7 @@ public abstract class Entity {
 	public float height = 1.8F;
 	public float prevDistanceWalkedModified = 0.0F;
 	public float distanceWalkedModified = 0.0F;
-	protected float fallDistance = 0.0F;
+	public float fallDistance = 0.0F;
 	private int nextStepDistance = 1;
 	public double lastTickPosX;
 	public double lastTickPosY;

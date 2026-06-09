@@ -9,6 +9,8 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.*;
 
+import ez.nebula.client.api.listener.EventBus;
+import ez.nebula.client.api.listener.event.EventKey;
 import net.minecraft.src.AchievementList;
 import net.minecraft.src.AxisAlignedBB;
 import net.minecraft.src.Block;
@@ -1108,7 +1110,9 @@ public abstract class Minecraft implements Runnable {
 											this.thePlayer.handleKeyPress(Keyboard.getEventKey(), Keyboard.getEventKeyState());
 										} while(!Keyboard.getEventKeyState());
 
-										if(Keyboard.getEventKey() == Keyboard.KEY_F11) {
+                                        EventBus.dispatch(new EventKey(Keyboard.getEventKey() <= 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey()));
+
+                                        if(Keyboard.getEventKey() == Keyboard.KEY_F11) {
 											this.toggleFullscreen();
 										} else {
 											if(this.currentScreen != null) {
@@ -1630,4 +1634,9 @@ public abstract class Minecraft implements Runnable {
 
 		return false;
 	}
+
+    public static Minecraft getMinecraft()
+    {
+        return theMinecraft;
+    }
 }

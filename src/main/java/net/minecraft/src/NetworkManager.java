@@ -1,5 +1,8 @@
 package net.minecraft.src;
 
+import ez.nebula.client.api.listener.EventBus;
+import ez.nebula.client.api.listener.event.EventPacket;
+
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -46,6 +49,7 @@ public class NetworkManager {
 		try {
 			var1.setSoTimeout(30000);
 			var1.setTrafficClass(24);
+            var1.setTcpNoDelay(true);
 		} catch (SocketException var5) {
 			System.err.println(var5.getMessage());
 		}
@@ -60,6 +64,13 @@ public class NetworkManager {
 
 	public void addToSendQueue(Packet var1) {
 		if(!this.isServerTerminating) {
+            final EventPacket event = new EventPacket(true, var1);
+            if (EventBus.dispatch(event))
+            {
+                return;
+            }
+            var1 = event.getPacket();
+
 			Object var2 = this.sendQueueLock;
 			synchronized(var2) {
 				this.sendQueueByteLength += var1.getPacketSize() + 1;
@@ -201,7 +212,10 @@ public class NetworkManager {
 
 		while(!this.readPackets.isEmpty() && var1-- >= 0) {
 			Packet var2 = (Packet)this.readPackets.remove(0);
-			var2.processPacket(this.netHandler);
+            if (!EventBus.dispatch(new EventPacket(false, var2)))
+            {
+                var2.processPacket(this.netHandler);
+            }
 		}
 
 		this.wakeThreads();

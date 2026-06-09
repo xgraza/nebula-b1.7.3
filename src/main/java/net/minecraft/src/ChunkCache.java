@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import ez.nebula.client.impl.module.render.FullbrightModule;
+
 public class ChunkCache implements IBlockAccess {
 	private int chunkX;
 	private int chunkZ;
@@ -51,10 +53,18 @@ public class ChunkCache implements IBlockAccess {
 			var5 = var4;
 		}
 
+        if (FullbrightModule.INSTANCE.isToggled())
+        {
+            return 1.0f;
+        }
 		return this.worldObj.worldProvider.lightBrightnessTable[var5];
 	}
 
 	public float getLightBrightness(int var1, int var2, int var3) {
+        if (FullbrightModule.INSTANCE.isToggled())
+        {
+            return 1.0f;
+        }
 		return this.worldObj.worldProvider.lightBrightnessTable[this.getLightValue(var1, var2, var3)];
 	}
 
@@ -63,6 +73,10 @@ public class ChunkCache implements IBlockAccess {
 	}
 
 	public int getLightValueExt(int var1, int var2, int var3, boolean var4) {
+        if (FullbrightModule.INSTANCE.isToggled())
+        {
+            return 1;
+        }
 		if(var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
 			int var5;
 			int var6;

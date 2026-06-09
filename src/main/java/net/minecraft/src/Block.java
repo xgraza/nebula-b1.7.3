@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import ez.nebula.client.impl.module.render.XRayModule;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -233,6 +235,10 @@ public class Block {
 	}
 
 	public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
+        if (XRayModule.INSTANCE.isToggled())
+        {
+            return XRayModule.XRAY_BLOCK_LIST.contains(this);
+        }
 		return var5 == 0 && this.minY > 0.0D ? true : (var5 == 1 && this.maxY < 1.0D ? true : (var5 == 2 && this.minZ > 0.0D ? true : (var5 == 3 && this.maxZ < 1.0D ? true : (var5 == 4 && this.minX > 0.0D ? true : (var5 == 5 && this.maxX < 1.0D ? true : !var1.isBlockOpaqueCube(var2, var3, var4))))));
 	}
 

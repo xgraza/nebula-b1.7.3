@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import ez.nebula.client.impl.module.combat.AntiKnockbackModule;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -98,6 +100,12 @@ public class Explosion {
 				double var40 = (double)this.worldObj.func_675_a(var31, var33.boundingBox);
 				double var41 = (1.0D - var13) * var40;
 				var33.attackEntityFrom(this.exploder, (int)((var41 * var41 + var41) / 2.0D * 8.0D * (double)this.explosionSize + 1.0D));
+                if (var33 instanceof EntityPlayerSP
+                        && AntiKnockbackModule.INSTANCE.isToggled()
+                        && AntiKnockbackModule.INSTANCE.explosionsSetting.getValue())
+                {
+                    continue;
+                }
 				var33.motionX += var15 * var41;
 				var33.motionY += var17 * var41;
 				var33.motionZ += var19 * var41;

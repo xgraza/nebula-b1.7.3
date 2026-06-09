@@ -1,5 +1,9 @@
 package net.minecraft.src;
 
+import ez.nebula.client.api.listener.EventBus;
+import ez.nebula.client.api.listener.event.EventMove;
+import ez.nebula.client.api.listener.event.EventUpdate;
+import ez.nebula.client.impl.module.movement.NoPushModule;
 import net.minecraft.client.Minecraft;
 
 public class EntityPlayerSP extends EntityPlayer {
@@ -21,7 +25,12 @@ public class EntityPlayerSP extends EntityPlayer {
 	}
 
 	public void moveEntity(double var1, double var3, double var5) {
-		super.moveEntity(var1, var3, var5);
+        final EventMove event = new EventMove(var1, var3, var5);
+        if (EventBus.dispatch(event))
+        {
+            return;
+        }
+		super.moveEntity(event.getX(), event.getY(), event.getZ());
 	}
 
 	public void updatePlayerActionState() {
@@ -84,7 +93,8 @@ public class EntityPlayerSP extends EntityPlayer {
 		this.pushOutOfBlocks(this.posX - (double)this.width * 0.35D, this.boundingBox.minY + 0.5D, this.posZ - (double)this.width * 0.35D);
 		this.pushOutOfBlocks(this.posX + (double)this.width * 0.35D, this.boundingBox.minY + 0.5D, this.posZ - (double)this.width * 0.35D);
 		this.pushOutOfBlocks(this.posX + (double)this.width * 0.35D, this.boundingBox.minY + 0.5D, this.posZ + (double)this.width * 0.35D);
-		super.onLivingUpdate();
+        EventBus.dispatch(new EventUpdate());
+        super.onLivingUpdate();
 	}
 
 	public void resetPlayerKeyState() {
@@ -196,6 +206,11 @@ public class EntityPlayerSP extends EntityPlayer {
 	}
 
 	protected boolean pushOutOfBlocks(double var1, double var3, double var5) {
+        if (NoPushModule.INSTANCE.isToggled()
+                && NoPushModule.INSTANCE.blocksSetting.getValue())
+        {
+            return false;
+        }
 		int var7 = MathHelper.floor_double(var1);
 		int var8 = MathHelper.floor_double(var3);
 		int var9 = MathHelper.floor_double(var5);

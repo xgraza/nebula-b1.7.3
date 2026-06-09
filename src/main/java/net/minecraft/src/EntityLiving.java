@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import ez.nebula.client.impl.module.combat.AntiKnockbackModule;
+
 import java.util.List;
 
 public abstract class EntityLiving extends Entity {
@@ -390,6 +392,10 @@ public abstract class EntityLiving extends Entity {
 	}
 
 	public void knockBack(Entity var1, int var2, double var3, double var5) {
+        if (AntiKnockbackModule.INSTANCE.isToggled())
+        {
+            return;
+        }
 		float var7 = MathHelper.sqrt_double(var3 * var3 + var5 * var5);
 		float var8 = 0.4F;
 		this.motionX /= 2.0D;

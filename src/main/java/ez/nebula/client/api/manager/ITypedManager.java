@@ -1,8 +1,10 @@
 package ez.nebula.client.api.manager;
 
-import java.util.List;
+import ez.nebula.client.api.Initiable;
 
-public interface ITypedManager<T> extends IManager
+import java.util.Collection;
+
+public interface ITypedManager<T> extends Initiable
 {
-    List<T> getAll();
+    Collection<T> getAll();
 }

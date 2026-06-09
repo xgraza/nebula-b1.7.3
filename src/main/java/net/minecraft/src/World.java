@@ -1,5 +1,10 @@
 package net.minecraft.src;
 
+import ez.nebula.client.impl.module.movement.JesusModule;
+import ez.nebula.client.impl.module.movement.NoPushModule;
+import ez.nebula.client.impl.module.render.FullbrightModule;
+import ez.nebula.client.impl.module.render.NoWeatherModule;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -682,10 +687,18 @@ public class World implements IBlockAccess {
 			var5 = var4;
 		}
 
+        if (FullbrightModule.INSTANCE.isToggled())
+        {
+            return 1.0f;
+        }
 		return this.worldProvider.lightBrightnessTable[var5];
 	}
 
 	public float getLightBrightness(int var1, int var2, int var3) {
+        if (FullbrightModule.INSTANCE.isToggled())
+        {
+            return 1.0f;
+        }
 		return this.worldProvider.lightBrightnessTable[this.getBlockLightValue(var1, var2, var3)];
 	}
 
@@ -963,6 +976,10 @@ public class World implements IBlockAccess {
 					for(int var11 = var5 - 1; var11 < var6; ++var11) {
 						Block var12 = Block.blocksList[this.getBlockId(var9, var11, var10)];
 						if(var12 != null) {
+                            if (var12 instanceof BlockFluid && JesusModule.INSTANCE.isToggled() && !(var1 instanceof EntityPlayerSP))
+                            {
+                                continue;
+                            }
 							var12.getCollidingBoundingBoxes(this, var9, var11, var10, var2, this.collidingBoundingBoxes);
 						}
 					}
@@ -1443,7 +1460,9 @@ public class World implements IBlockAccess {
 				}
 			}
 
-			if(var11.lengthVector() > 0.0D) {
+			if(var11.lengthVector() > 0.0D && !(NoPushModule.INSTANCE.isToggled()
+                    && NoPushModule.INSTANCE.waterSetting.getValue()
+                    && var3 instanceof EntityPlayerSP)) {
 				var11 = var11.normalize();
 				double var18 = 0.014D;
 				var3.motionX += var11.xCoord * var18;
@@ -2396,10 +2415,18 @@ public class World implements IBlockAccess {
 	}
 
 	public float func_27166_f(float var1) {
+        if (NoWeatherModule.INSTANCE.isToggled() && NoWeatherModule.INSTANCE.thunderSetting.getValue())
+        {
+            return 0.0f;
+        }
 		return (this.prevThunderingStrength + (this.thunderingStrength - this.prevThunderingStrength) * var1) * this.func_27162_g(var1);
 	}
 
 	public float func_27162_g(float var1) {
+        if (NoWeatherModule.INSTANCE.isToggled())
+        {
+            return 0.0f;
+        }
 		return this.prevRainingStrength + (this.rainingStrength - this.prevRainingStrength) * var1;
 	}
 

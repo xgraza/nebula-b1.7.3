@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import ez.nebula.client.impl.module.world.AntiCactusModule;
+
 import java.util.Random;
 
 public class BlockCactus extends Block {
@@ -28,6 +30,17 @@ public class BlockCactus extends Block {
 	}
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+        if (AntiCactusModule.INSTANCE.isToggled())
+        {
+            return AxisAlignedBB.getBoundingBoxFromPool(
+                    (double)var2 + this.minX,
+                    (double)var3 + this.minY,
+                    (double)var4 + this.minZ,
+                    (double)var2 + this.maxX,
+                    (double)var3 + this.maxY,
+                    (double)var4 + this.maxZ);
+        }
+
 		float var5 = 1.0F / 16.0F;
 		return AxisAlignedBB.getBoundingBoxFromPool((double)((float)var2 + var5), (double)var3, (double)((float)var4 + var5), (double)((float)(var2 + 1) - var5), (double)((float)(var3 + 1) - var5), (double)((float)(var4 + 1) - var5));
 	}

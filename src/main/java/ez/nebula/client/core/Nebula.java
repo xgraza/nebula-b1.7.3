@@ -3,7 +3,9 @@ package ez.nebula.client.core;
 import ez.nebula.client.BuildConfig;
 import ez.nebula.client.api.config.ConfigManager;
 import ez.nebula.client.api.logger.Logger;
+import ez.nebula.client.api.manager.friend.FriendManager;
 import ez.nebula.client.api.manager.key.KeyManager;
+import ez.nebula.client.api.manager.macro.MacroManager;
 import ez.nebula.client.api.manager.module.ModuleManager;
 
 import java.io.File;
@@ -24,7 +26,9 @@ public enum Nebula
 
     private final ConfigManager configManager = new ConfigManager();
     private final KeyManager keyManager = new KeyManager();
+    private final MacroManager macroManager = new MacroManager();
     private final ModuleManager moduleManager = new ModuleManager();
+    private final FriendManager friendManager = new FriendManager();
 
     public void init(final File workingDirectory)
     {
@@ -48,13 +52,30 @@ public enum Nebula
 
         Logger.info("Initializing managers");
         keyManager.init();
+        macroManager.init();
         moduleManager.init();
+        friendManager.init();
 
         Logger.info("Loading configurations");
         configManager.init();
 
         final long endTime = System.nanoTime();
         Logger.info("Finished initializing Nebula in %.2fms", (endTime - startTime) / 1000000.0);
+    }
+
+    public ConfigManager getConfigManager()
+    {
+        return configManager;
+    }
+
+    public KeyManager getKeyManager()
+    {
+        return keyManager;
+    }
+
+    public ModuleManager getModuleManager()
+    {
+        return moduleManager;
     }
 
     public File getNebulaDirectory()
