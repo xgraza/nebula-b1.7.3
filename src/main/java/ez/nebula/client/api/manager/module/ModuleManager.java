@@ -5,10 +5,8 @@ import ez.nebula.client.api.manager.ITypedManager;
 import ez.nebula.client.api.manager.module.trait.ModuleInstance;
 import ez.nebula.client.core.Nebula;
 import ez.nebula.client.impl.module.combat.AntiKnockbackModule;
-import ez.nebula.client.impl.module.movement.FlyModule;
-import ez.nebula.client.impl.module.movement.IceSpeedModule;
-import ez.nebula.client.impl.module.movement.JesusModule;
-import ez.nebula.client.impl.module.movement.NoPushModule;
+import ez.nebula.client.impl.module.combat.KillAuraModule;
+import ez.nebula.client.impl.module.movement.*;
 import ez.nebula.client.impl.module.player.NoFallModule;
 import ez.nebula.client.impl.module.render.*;
 import ez.nebula.client.impl.module.world.AntiCactusModule;
@@ -41,12 +39,14 @@ public final class ModuleManager implements ITypedManager<Module>
 
         // Combat
         registerModule(AntiKnockbackModule.class);
+        registerModule(KillAuraModule.class);
 
         // Movement
         registerModule(FlyModule.class);
         registerModule(IceSpeedModule.class);
         registerModule(JesusModule.class);
         registerModule(NoPushModule.class);
+        registerModule(SpeedModule.class);
 
         // Player
         registerModule(NoFallModule.class);

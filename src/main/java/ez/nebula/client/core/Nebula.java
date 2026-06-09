@@ -81,6 +81,11 @@ public enum Nebula
         return moduleManager;
     }
 
+    public FriendManager getFriendManager()
+    {
+        return friendManager;
+    }
+
     public AccountManager getAccountManager()
     {
         return accountManager;

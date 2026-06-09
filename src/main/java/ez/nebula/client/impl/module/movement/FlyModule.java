@@ -26,16 +26,24 @@ public final class FlyModule extends Module
         if (event.getPacket() instanceof Packet10Flying && event.isClient())
         {
             final Packet10Flying packet = (Packet10Flying) event.getPacket();
-            packet.yPosition -= (packet.yPosition % 0.015625);
-            packet.stance -= (packet.stance % 0.015625);
-            packet.onGround = true;
+            if (MC.thePlayer.ticksExisted % 2 == 0)
+            {
+                packet.yPosition -= 0.0326;
+                packet.stance -= 0.0326;
+                packet.onGround = false;
+            } else
+            {
+                packet.yPosition = MoveUtil.getMathGround(packet.yPosition);
+                packet.stance = MoveUtil.getMathGround(packet.stance);
+                packet.onGround = true;
+            }
         }
     };
 
     @Subscribe
     private final EventListener<EventMove> moveEventListener = event ->
     {
-        double motionY = -0.1;
+        double motionY = 0;
         if (MC.gameSettings.keyBindJump.isKeyDown())
         {
             motionY = 0.1;
@@ -45,7 +53,7 @@ public final class FlyModule extends Module
         }
 
         MoveUtil.setVerticalSpeed(event, motionY);
-        MoveUtil.setSpeed(event, MoveUtil.isMoving() ? 0.2 : 0.0);
+        MoveUtil.setSpeed(event, MoveUtil.isMoving() ? 0.21 : 0.0);
 
         MC.thePlayer.onGround = true;
     };

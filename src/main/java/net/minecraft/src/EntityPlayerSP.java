@@ -41,6 +41,7 @@ public class EntityPlayerSP extends EntityPlayer {
 	}
 
 	public void onLivingUpdate() {
+        EventBus.dispatch(new EventUpdate());
 		if(!this.mc.statFileWriter.hasAchievementUnlocked(AchievementList.openInventory)) {
 			this.mc.guiAchievement.queueAchievementInformation(AchievementList.openInventory);
 		}
@@ -93,7 +94,6 @@ public class EntityPlayerSP extends EntityPlayer {
 		this.pushOutOfBlocks(this.posX - (double)this.width * 0.35D, this.boundingBox.minY + 0.5D, this.posZ - (double)this.width * 0.35D);
 		this.pushOutOfBlocks(this.posX + (double)this.width * 0.35D, this.boundingBox.minY + 0.5D, this.posZ - (double)this.width * 0.35D);
 		this.pushOutOfBlocks(this.posX + (double)this.width * 0.35D, this.boundingBox.minY + 0.5D, this.posZ + (double)this.width * 0.35D);
-        EventBus.dispatch(new EventUpdate());
         super.onLivingUpdate();
 	}
 
