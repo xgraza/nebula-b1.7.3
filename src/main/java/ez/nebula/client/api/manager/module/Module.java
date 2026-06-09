@@ -33,7 +33,12 @@ public class Module implements Toggleable, IJSONSerializable, SettingProvider
 
     private final ModuleManifest manifest;
     private final Key key;
-    private boolean toggled, visible = true;
+
+    private final Setting<Boolean> visibleSetting = builder("Visible", true)
+            .setDescription("If to show visibility in the client arraylist")
+            .build();
+
+    private boolean toggled;
 
     public Module()
     {
@@ -56,6 +61,7 @@ public class Module implements Toggleable, IJSONSerializable, SettingProvider
     public void init()
     {
         Nebula.INSTANCE.getKeyManager().registerKey(key);
+        registerSetting(visibleSetting);
 
         for (final Field field : getClass().getDeclaredFields())
         {
@@ -128,12 +134,12 @@ public class Module implements Toggleable, IJSONSerializable, SettingProvider
 
     public boolean isVisible()
     {
-        return visible;
+        return visibleSetting.getValue();
     }
 
     public void setVisible(boolean visible)
     {
-        this.visible = visible;
+        visibleSetting.setValue(visible);
     }
 
     @Override
@@ -167,10 +173,6 @@ public class Module implements Toggleable, IJSONSerializable, SettingProvider
         {
             setToggled(object.get("toggled").getAsBoolean());
         }
-        if (object.has("visible"))
-        {
-            setVisible(object.get("visible").getAsBoolean());
-        }
         if (object.has("key"))
         {
             key.fromJSON(object.get("key"));
@@ -194,7 +196,6 @@ public class Module implements Toggleable, IJSONSerializable, SettingProvider
     {
         final JsonObject object = new JsonObject();
         object.addProperty("toggled", toggled);
-        object.addProperty("visible", visible);
         object.add("key", key.toJSON());
         if (!settingNameMap.isEmpty())
         {

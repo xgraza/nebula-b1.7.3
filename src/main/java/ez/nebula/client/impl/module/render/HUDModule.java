@@ -9,6 +9,11 @@ import ez.nebula.client.api.manager.module.trait.ModuleCategory;
 import ez.nebula.client.api.manager.module.trait.ModuleManifest;
 import ez.nebula.client.api.setting.Setting;
 import ez.nebula.client.core.ClientConfig;
+import ez.nebula.client.core.Nebula;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author xgraza
@@ -22,11 +27,15 @@ public final class HUDModule extends Module
     private final Setting<Boolean> watermarkSetting = builder("Watermark", true)
             .setDescription("If to show the client watermark")
             .build();
+    private final Setting<Boolean> arrayListSetting = builder("Arraylist", true)
+            .setDescription("If to show all toggled modules")
+            .build();
 
     public HUDModule()
     {
         // on by default
         setToggled(true);
+        setVisible(false);
     }
 
     @Subscribe
@@ -35,6 +44,26 @@ public final class HUDModule extends Module
         if (watermarkSetting.getValue())
         {
             MC.fontRenderer.drawStringWithShadow(BuildConfig.NAME + " " + ClientConfig.VERSION, 2, 2, -1);
+        }
+
+        if (arrayListSetting.getValue())
+        {
+            final List<Module> moduleList = Nebula.INSTANCE.getModuleManager().getAll()
+                    .stream()
+                    .filter((module) -> module.isToggled() && module.isVisible())
+                    .sorted(Comparator.comparingInt(
+                            (module) -> -MC.fontRenderer.getStringWidth(module.getManifest().name())))
+                    .collect(Collectors.toList());
+
+            int posY = 2;
+            for (final Module module : moduleList)
+            {
+                final String text = module.getManifest().name();
+                final int textWidth = MC.fontRenderer.getStringWidth(text);
+
+                MC.fontRenderer.drawStringWithShadow(text, event.getResolution().getScaledWidth() - textWidth - 2, posY, -1);
+                posY += 11;
+            }
         }
     };
 }
