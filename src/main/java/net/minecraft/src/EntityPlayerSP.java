@@ -42,7 +42,10 @@ public class EntityPlayerSP extends EntityPlayer {
 	}
 
 	public void onLivingUpdate() {
-        EventBus.dispatch(new EventUpdate());
+        if (mc.thePlayer != null)
+        {
+            EventBus.dispatch(new EventUpdate());
+        }
 		if(!this.mc.statFileWriter.hasAchievementUnlocked(AchievementList.openInventory)) {
 			this.mc.guiAchievement.queueAchievementInformation(AchievementList.openInventory);
 		}

@@ -4,6 +4,7 @@ import ez.nebula.client.BuildConfig;
 import ez.nebula.client.api.config.ConfigManager;
 import ez.nebula.client.api.logger.Logger;
 import ez.nebula.client.api.manager.account.AccountManager;
+import ez.nebula.client.api.manager.command.CommandManager;
 import ez.nebula.client.api.manager.friend.FriendManager;
 import ez.nebula.client.api.manager.key.KeyManager;
 import ez.nebula.client.api.manager.macro.MacroManager;
@@ -30,6 +31,7 @@ public enum Nebula
     private final KeyManager keyManager = new KeyManager();
     private final MacroManager macroManager = new MacroManager();
     private final ModuleManager moduleManager = new ModuleManager();
+    private final CommandManager commandManager = new CommandManager();
     private final FriendManager friendManager = new FriendManager();
     private final AccountManager accountManager = new AccountManager();
     private final InventoryManager inventoryManager = new InventoryManager();
@@ -58,6 +60,7 @@ public enum Nebula
         keyManager.init();
         macroManager.init();
         moduleManager.init();
+        commandManager.init();
         friendManager.init();
         accountManager.init();
         inventoryManager.init();
@@ -82,6 +85,11 @@ public enum Nebula
     public ModuleManager getModuleManager()
     {
         return moduleManager;
+    }
+
+    public CommandManager getCommandManager()
+    {
+        return commandManager;
     }
 
     public FriendManager getFriendManager()
