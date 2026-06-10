@@ -7,12 +7,10 @@ import ez.nebula.client.core.Nebula;
 import ez.nebula.client.impl.module.combat.AntiKnockbackModule;
 import ez.nebula.client.impl.module.combat.AutoHealModule;
 import ez.nebula.client.impl.module.combat.KillAuraModule;
-import ez.nebula.client.impl.module.exploit.FastPortalModule;
-import ez.nebula.client.impl.module.exploit.PhaseModule;
-import ez.nebula.client.impl.module.exploit.PortalGUIModule;
-import ez.nebula.client.impl.module.exploit.TimerModule;
+import ez.nebula.client.impl.module.exploit.*;
 import ez.nebula.client.impl.module.movement.*;
 import ez.nebula.client.impl.module.player.AutoRespawnModule;
+import ez.nebula.client.impl.module.player.AutoToolModule;
 import ez.nebula.client.impl.module.player.FreecamModule;
 import ez.nebula.client.impl.module.player.NoFallModule;
 import ez.nebula.client.impl.module.render.*;
@@ -51,7 +49,9 @@ public final class ModuleManager implements ITypedManager<Module>
         registerModule(KillAuraModule.class);
 
         // Exploit
+        registerModule(FastBreakModule.class);
         registerModule(FastPortalModule.class);
+        //registerModule(InfiniteDurabilityModule.class);
         registerModule(PhaseModule.class);
         registerModule(PortalGUIModule.class);
         registerModule(TimerModule.class);
@@ -66,6 +66,7 @@ public final class ModuleManager implements ITypedManager<Module>
 
         // Player
         registerModule(AutoRespawnModule.class);
+        registerModule(AutoToolModule.class);
         registerModule(FreecamModule.class);
         registerModule(NoFallModule.class);
 

@@ -8,6 +8,13 @@ public class ItemSpade extends ItemTool {
 	}
 
 	public boolean canHarvestBlock(Block var1) {
-		return var1 == Block.snow ? true : var1 == Block.blockSnow;
+        for (Block b : blocksEffectiveAgainst)
+        {
+            if (b == var1)
+            {
+                return true;
+            }
+        }
+		return false;
 	}
 }

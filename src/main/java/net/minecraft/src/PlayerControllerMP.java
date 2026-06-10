@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import ez.nebula.client.api.listener.EventBus;
+import ez.nebula.client.api.listener.event.EventClickBlock;
 import ez.nebula.client.core.Nebula;
 import net.minecraft.client.Minecraft;
 
@@ -41,6 +43,10 @@ public class PlayerControllerMP extends PlayerController {
 
 	public void clickBlock(int var1, int var2, int var3, int var4) {
 		if(!this.isHittingBlock || var1 != this.currentBlockX || var2 != this.currentBlockY || var3 != this.currentblockZ) {
+            if (EventBus.dispatch(new EventClickBlock(var1, var2, var3, var4)))
+            {
+                return;
+            }
 			this.netClientHandler.addToSendQueue(new Packet14BlockDig(0, var1, var2, var3, var4));
 			int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
 			if(var5 > 0 && this.curBlockDamageMP == 0.0F) {

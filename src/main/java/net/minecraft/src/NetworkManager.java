@@ -70,19 +70,23 @@ public class NetworkManager {
                 return;
             }
             var1 = event.getPacket();
-
-			Object var2 = this.sendQueueLock;
-			synchronized(var2) {
-				this.sendQueueByteLength += var1.getPacketSize() + 1;
-				if(var1.isChunkDataPacket) {
-					this.chunkDataPackets.add(var1);
-				} else {
-					this.dataPackets.add(var1);
-				}
-
-			}
+            addToSendQueueSilent(var1);
 		}
 	}
+
+    public void addToSendQueueSilent(Packet var1)
+    {
+        Object var2 = this.sendQueueLock;
+        synchronized(var2) {
+            this.sendQueueByteLength += var1.getPacketSize() + 1;
+            if(var1.isChunkDataPacket) {
+                this.chunkDataPackets.add(var1);
+            } else {
+                this.dataPackets.add(var1);
+            }
+
+        }
+    }
 
 	private boolean sendPacket() {
 		boolean var1 = false;

@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import ez.nebula.client.api.listener.EventBus;
+import ez.nebula.client.api.listener.event.EventClickBlock;
 import net.minecraft.client.Minecraft;
 
 public class PlayerControllerSP extends PlayerController {
@@ -41,6 +43,10 @@ public class PlayerControllerSP extends PlayerController {
 	}
 
 	public void clickBlock(int var1, int var2, int var3, int var4) {
+        if (EventBus.dispatch(new EventClickBlock(var1, var2, var3, var4)))
+        {
+            return;
+        }
 		this.mc.theWorld.onBlockHit(this.mc.thePlayer, var1, var2, var3, var4);
 		int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
 		if(var5 > 0 && this.curBlockDamage == 0.0F) {

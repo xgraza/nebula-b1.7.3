@@ -37,7 +37,13 @@ public final class AutoRespawnModule extends Module
                     dimension = -1;
                     break;
             }
-            MC.getSendQueue().addToSendQueue(new Packet9Respawn(dimension));
+            if (MC.isMultiplayerWorld())
+            {
+                MC.getSendQueue().addToSendQueue(new Packet9Respawn(dimension));
+            } else
+            {
+                MC.thePlayer.respawnPlayer();
+            }
         }
     };
 
