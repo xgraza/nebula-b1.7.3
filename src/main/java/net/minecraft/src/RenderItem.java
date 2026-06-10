@@ -171,11 +171,13 @@ public class RenderItem extends Render<EntityItem> {
 
 	public void renderItemOverlayIntoGUI(FontRenderer var1, RenderEngine var2, ItemStack var3, int var4, int var5) {
 		if(var3 != null) {
-			if(var3.stackSize > 1) {
+			if(var3.stackSize != 1)
+            {
 				String var6 = "" + var3.stackSize;
 				GL11.glDisable(GL11.GL_LIGHTING);
 				GL11.glDisable(GL11.GL_DEPTH_TEST);
-				var1.drawStringWithShadow(var6, var4 + 19 - 2 - var1.getStringWidth(var6), var5 + 6 + 3, 16777215);
+                boolean isInfinite = var3.stackSize <= 0;
+				var1.drawStringWithShadow(var6, var4 + 19 - 2 - var1.getStringWidth(var6), var5 + 6 + 3, isInfinite ? 0xFF0000 : 16777215);
 				GL11.glEnable(GL11.GL_LIGHTING);
 				GL11.glEnable(GL11.GL_DEPTH_TEST);
 			}
