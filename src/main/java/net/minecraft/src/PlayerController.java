@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import ez.nebula.client.core.Nebula;
 import net.minecraft.client.Minecraft;
 
 public class PlayerController {
@@ -48,9 +49,9 @@ public class PlayerController {
 		int var4 = var3.stackSize;
 		ItemStack var5 = var3.useItemRightClick(var2, var1);
 		if(var5 != var3 || var5 != null && var5.stackSize != var4) {
-			var1.inventory.mainInventory[var1.inventory.currentItem] = var5;
+			var1.inventory.mainInventory[Nebula.INSTANCE.getInventoryManager().getSlot()] = var5;
 			if(var5.stackSize == 0) {
-				var1.inventory.mainInventory[var1.inventory.currentItem] = null;
+				var1.inventory.mainInventory[Nebula.INSTANCE.getInventoryManager().getSlot()] = null;
 			}
 
 			return true;

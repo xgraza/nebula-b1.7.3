@@ -54,7 +54,13 @@ public final class AutoHealModule extends Module
             return;
         }
         Nebula.INSTANCE.getInventoryManager().setSlot(slot);
-        MC.getSendQueue().addToSendQueue(new Packet15Place(-1, -1, -1, 255, null));
+        if (MC.isMultiplayerWorld())
+        {
+            MC.getSendQueue().addToSendQueue(new Packet15Place(-1, -1, -1, 255, null));
+        } else
+        {
+            MC.playerController.sendUseItem(MC.thePlayer, MC.theWorld, Nebula.INSTANCE.getInventoryManager().getStack());
+        }
         Nebula.INSTANCE.getInventoryManager().syncSlot();
     };
 
