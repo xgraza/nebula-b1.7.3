@@ -35,6 +35,10 @@ public final class CategoryPanel implements IComponent
         final int textY = (int) (y + (getPadding() * 2) + (height / 2.0) - 9 / 2.0);
         getFont().drawStringWithShadow(name, (int) (x + (getPadding() * 2)), textY, -1);
 
+        final String text = "[" + getChildren().size() + "]";
+        final int textWidth = getFont().getStringWidth(text);
+        getFont().drawStringWithShadow(text, (int) (x + width - getPadding() - textWidth), textY, 0xAAAAAA);
+
         componentWidth -= (getPadding() * 2);
         double posY = y + height + (getPadding() * 2);
         for (final IComponent component : getChildren())

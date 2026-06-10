@@ -1,6 +1,7 @@
 package ez.nebula.client.impl.gui.module;
 
 import ez.nebula.client.api.manager.key.Key;
+import ez.nebula.client.api.manager.key.trait.Device;
 import ez.nebula.client.api.manager.module.Module;
 import ez.nebula.client.api.render.component.IComponent;
 import ez.nebula.client.api.setting.EnumSetting;
@@ -11,6 +12,7 @@ import ez.nebula.client.impl.gui.module.setting.EnumComponent;
 import ez.nebula.client.impl.gui.module.setting.KeyComponent;
 import ez.nebula.client.impl.gui.module.setting.NumberComponent;
 import ez.nebula.client.util.render.RenderUtil;
+import ez.nebula.client.util.text.FormattingUtil;
 
 import java.awt.Color;
 import java.util.LinkedList;
@@ -59,6 +61,13 @@ public class ModuleComponent implements IComponent
         RenderUtil.renderRectangle(x, y, width, getHeight(), color);
         final int textY = (int) (y + getPadding() + (height / 2.0) - 9 / 2.0);
         getFont().drawStringWithShadow(module.getManifest().name(), (int) (x + (getPadding() * 2)), textY, -1);
+
+        if (getChildren().size() > 2)
+        {
+            final String text = opened ? "-" : "+";
+            final int textWidth = getFont().getStringWidth(text);
+            getFont().drawStringWithShadow(text, (int) (x + width - getPadding() - textWidth), textY, 0xAAAAAA);
+        }
 
         if (opened)
         {

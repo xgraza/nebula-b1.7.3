@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import ez.nebula.client.api.config.IJSONSerializable;
 import ez.nebula.client.api.manager.key.trait.Device;
+import org.lwjgl.input.Keyboard;
 
 /**
  * @author xgraza
@@ -40,6 +41,11 @@ public abstract class Key implements IJSONSerializable
     public void setDevice(Device device)
     {
         this.device = device;
+    }
+
+    public boolean isBound()
+    {
+        return device != Device.KEYBOARD || keyCode > Keyboard.KEY_NONE;
     }
 
     @Override
