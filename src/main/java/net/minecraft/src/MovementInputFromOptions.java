@@ -48,6 +48,8 @@ public class MovementInputFromOptions extends MovementInput {
 	}
 
 	public void updatePlayerMoveState(EntityPlayer var1) {
+        jump = false;
+        sneak = false;
 		this.moveStrafe = 0.0F;
 		this.moveForward = 0.0F;
 		if(this.movementKeyStates[0]) {

@@ -3,6 +3,7 @@ package net.minecraft.src;
 import ez.nebula.client.api.listener.EventBus;
 import ez.nebula.client.api.listener.event.EventMove;
 import ez.nebula.client.api.listener.event.EventUpdate;
+import ez.nebula.client.api.listener.event.EventUpdateInput;
 import ez.nebula.client.impl.module.exploit.PortalGUIModule;
 import ez.nebula.client.impl.module.movement.NoPushModule;
 import net.minecraft.client.Minecraft;
@@ -89,8 +90,15 @@ public class EntityPlayerSP extends EntityPlayer {
 			--this.timeUntilPortal;
 		}
 
-		this.movementInput.updatePlayerMoveState(this);
-		if(this.movementInput.sneak && this.ySize < 0.2F) {
+        if (EventBus.dispatch(new EventUpdateInput()))
+        {
+            movementInput.resetKeyState();
+            movementInput.updatePlayerMoveState(this);
+        } else
+        {
+            this.movementInput.updatePlayerMoveState(this);
+        }
+        if(this.movementInput.sneak && this.ySize < 0.2F) {
 			this.ySize = 0.2F;
 		}
 

@@ -37,33 +37,43 @@ public final class MoveUtil
 
     public static double[] calculateMovement(final double speed)
     {
+        return calculateMovement(speed, getDirectionYaw());
+    }
+
+    public static double[] calculateMovement(final double speed, final float yaw)
+    {
         if (speed <= 0.0)
         {
             return new double[2];
         }
 
-        final float direction = getDirectionYaw() * 0.017453292f;
+        final float direction = yaw * 0.017453292f;
         return new double[]{ -Math.sin(direction) * speed, Math.cos(direction) * speed };
     }
 
     public static float getDirectionYaw()
     {
-        float yaw = MC.thePlayer.rotationYaw;
+        return getDirectionYaw(MC.thePlayer.rotationYaw,
+                MC.thePlayer.movementInput.moveForward,
+                MC.thePlayer.movementInput.moveStrafe);
+    }
 
+    public static float getDirectionYaw(float yaw, float f, float s)
+    {
         // if we're moving backwards, reverse our yaw
-        if (MC.thePlayer.movementInput.moveForward < 0.0f)
+        if (f < 0.0f)
         {
             yaw -= 180.0f;
         }
 
         // this is for handling holding forward & strafing side to side at the same time
-        float forward = MC.thePlayer.movementInput.moveForward * 0.5f;
+        float forward = f * 0.5f;
         if (forward == 0.0f)
         {
             forward = 1.0f;
         }
 
-        float strafe = MC.thePlayer.movementInput.moveStrafe;
+        float strafe = s;
         if (strafe > 0.0f)
         {
             yaw -= 90.0f * forward;

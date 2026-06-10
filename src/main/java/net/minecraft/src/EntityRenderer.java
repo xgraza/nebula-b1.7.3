@@ -363,7 +363,7 @@ public class EntityRenderer {
 				var5 = this.mouseFilterYAxis.func_22386_a(var5, 0.05F * var3);
 			}
 
-			this.mc.thePlayer.func_346_d(var4, var5 * (float)var6);
+			this.mc.renderViewEntity.func_346_d(var4, var5 * (float)var6);
 		}
 
 		if(!this.mc.skipRenderWorld) {

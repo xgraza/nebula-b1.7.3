@@ -10,6 +10,7 @@ import ez.nebula.client.api.manager.module.trait.ModuleManifest;
 import ez.nebula.client.api.setting.Setting;
 import ez.nebula.client.core.ClientConfig;
 import ez.nebula.client.core.Nebula;
+import ez.nebula.client.impl.module.player.FreecamModule;
 import net.minecraft.src.EntityPlayer;
 
 import java.util.Comparator;
@@ -74,7 +75,8 @@ public final class HUDModule extends Module
         {
             final List<EntityPlayer> playerList = ((List<EntityPlayer>) MC.theWorld.playerEntities)
                     .stream()
-                    .filter((player) -> !MC.thePlayer.equals(player))
+                    .filter((player) -> !MC.thePlayer.equals(player)
+                            && player.entityId != FreecamModule.CAMERA_GUY_ENTITY_ID)
                     .sorted(Comparator.comparingDouble((player) -> MC.thePlayer.getDistanceToEntity(player)))
                     .collect(Collectors.toList());
             int posY = watermarkSetting.getValue() ? 20 : 4;

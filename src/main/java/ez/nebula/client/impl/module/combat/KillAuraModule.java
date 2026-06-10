@@ -8,6 +8,7 @@ import ez.nebula.client.api.manager.module.trait.ModuleCategory;
 import ez.nebula.client.api.manager.module.trait.ModuleManifest;
 import ez.nebula.client.api.setting.Setting;
 import ez.nebula.client.core.Nebula;
+import ez.nebula.client.impl.module.player.FreecamModule;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
@@ -82,7 +83,11 @@ public final class KillAuraModule extends Module
 
     private boolean isEntityValid(final Entity entity)
     {
-        if (!(entity instanceof EntityLiving) || entity.isDead || ((EntityLiving) entity).health <= 0.0f || MC.thePlayer.equals(entity))
+        if (!(entity instanceof EntityLiving)
+                || entity.isDead
+                || ((EntityLiving) entity).health <= 0.0f
+                || MC.thePlayer.equals(entity)
+                || entity.entityId == FreecamModule.CAMERA_GUY_ENTITY_ID)
         {
             return false;
         }
