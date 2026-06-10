@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
 public class ItemBlock extends Item {
-	private int blockID;
+	public int blockID;
 
 	public ItemBlock(int var1) {
 		super(var1);

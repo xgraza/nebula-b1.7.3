@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import ez.nebula.client.core.Nebula;
 import net.minecraft.client.Minecraft;
 
 public class PlayerControllerMP extends PlayerController {
@@ -140,7 +141,7 @@ public class PlayerControllerMP extends PlayerController {
 
 	public boolean sendPlaceBlock(EntityPlayer var1, World var2, ItemStack var3, int var4, int var5, int var6, int var7) {
 		this.syncCurrentPlayItem();
-		this.netClientHandler.addToSendQueue(new Packet15Place(var4, var5, var6, var7, var1.inventory.getCurrentItem()));
+		this.netClientHandler.addToSendQueue(new Packet15Place(var4, var5, var6, var7, var3));
 		boolean var8 = super.sendPlaceBlock(var1, var2, var3, var4, var5, var6, var7);
 		return var8;
 	}

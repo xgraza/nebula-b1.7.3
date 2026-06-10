@@ -15,6 +15,7 @@ import ez.nebula.client.impl.module.player.AutoRespawnModule;
 import ez.nebula.client.impl.module.player.NoFallModule;
 import ez.nebula.client.impl.module.render.*;
 import ez.nebula.client.impl.module.world.AntiCactusModule;
+import ez.nebula.client.impl.module.world.BlockFlyModule;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -75,6 +76,7 @@ public final class ModuleManager implements ITypedManager<Module>
 
         // World
         registerModule(AntiCactusModule.class);
+        registerModule(BlockFlyModule.class);
 
         Logger.info("Loaded %s modules", moduleList.size());
 
