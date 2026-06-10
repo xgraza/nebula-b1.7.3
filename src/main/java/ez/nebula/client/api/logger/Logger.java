@@ -120,9 +120,8 @@ public final class Logger
             {
                 fileWriter.write(removeAnsiColors(formatted));
                 fileWriter.flush();
-            } catch (IOException e)
+            } catch (IOException ignored)
             {
-                throw new RuntimeException(e);
             }
         }
     }
