@@ -5,6 +5,7 @@ import ez.nebula.client.api.manager.ITypedManager;
 import ez.nebula.client.api.manager.module.trait.ModuleInstance;
 import ez.nebula.client.core.Nebula;
 import ez.nebula.client.impl.module.combat.AntiKnockbackModule;
+import ez.nebula.client.impl.module.combat.AutoHealModule;
 import ez.nebula.client.impl.module.combat.KillAuraModule;
 import ez.nebula.client.impl.module.exploit.FastPortalModule;
 import ez.nebula.client.impl.module.exploit.PortalGUIModule;
@@ -43,6 +44,7 @@ public final class ModuleManager implements ITypedManager<Module>
 
         // Combat
         registerModule(AntiKnockbackModule.class);
+        registerModule(AutoHealModule.class);
         registerModule(KillAuraModule.class);
 
         // Exploit

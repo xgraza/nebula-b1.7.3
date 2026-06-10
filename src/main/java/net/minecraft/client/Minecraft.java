@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import ez.nebula.client.api.listener.EventBus;
+import ez.nebula.client.api.listener.event.EventChangeWorld;
 import ez.nebula.client.api.listener.event.EventKey;
 import net.minecraft.src.AchievementList;
 import net.minecraft.src.AxisAlignedBB;
@@ -1341,6 +1342,7 @@ public abstract class Minecraft implements Runnable {
 	}
 
 	public void changeWorld(World var1, String var2, EntityPlayer var3) {
+        EventBus.dispatch(new EventChangeWorld());
 		this.statFileWriter.func_27175_b();
 		this.statFileWriter.syncStats();
 		this.renderViewEntity = null;

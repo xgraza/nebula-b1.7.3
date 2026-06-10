@@ -147,7 +147,7 @@ public class PlayerControllerMP extends PlayerController {
 
 	public boolean sendUseItem(EntityPlayer var1, World var2, ItemStack var3) {
 		this.syncCurrentPlayItem();
-		this.netClientHandler.addToSendQueue(new Packet15Place(-1, -1, -1, 255, var1.inventory.getCurrentItem()));
+		this.netClientHandler.addToSendQueue(new Packet15Place(-1, -1, -1, 255, var3));
 		boolean var4 = super.sendUseItem(var1, var2, var3);
 		return var4;
 	}

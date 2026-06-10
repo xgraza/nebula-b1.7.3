@@ -7,6 +7,7 @@ import java.util.Random;
 
 import ez.nebula.client.api.listener.EventBus;
 import ez.nebula.client.api.listener.event.EventRender2D;
+import ez.nebula.client.core.Nebula;
 import ez.nebula.client.impl.module.render.NoRenderModule;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
@@ -55,7 +56,7 @@ public class GuiIngame extends Gui {
 		InventoryPlayer var11 = this.mc.thePlayer.inventory;
 		this.zLevel = -90.0F;
 		this.drawTexturedModalRect(var6 / 2 - 91, var7 - 22, 0, 0, 182, 22);
-		this.drawTexturedModalRect(var6 / 2 - 91 - 1 + var11.currentItem * 20, var7 - 22 - 1, 0, 22, 24, 22);
+		this.drawTexturedModalRect(var6 / 2 - 91 - 1 + Nebula.INSTANCE.getInventoryManager().getSlot() * 20, var7 - 22 - 1, 0, 22, 24, 22);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/gui/icons.png"));
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_ONE_MINUS_DST_COLOR, GL11.GL_ONE_MINUS_SRC_COLOR);
