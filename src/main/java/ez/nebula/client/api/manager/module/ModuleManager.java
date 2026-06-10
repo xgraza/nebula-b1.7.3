@@ -10,6 +10,7 @@ import ez.nebula.client.impl.module.exploit.FastPortalModule;
 import ez.nebula.client.impl.module.exploit.PortalGUIModule;
 import ez.nebula.client.impl.module.exploit.TimerModule;
 import ez.nebula.client.impl.module.movement.*;
+import ez.nebula.client.impl.module.player.AutoRespawnModule;
 import ez.nebula.client.impl.module.player.NoFallModule;
 import ez.nebula.client.impl.module.render.*;
 import ez.nebula.client.impl.module.world.AntiCactusModule;
@@ -58,6 +59,7 @@ public final class ModuleManager implements ITypedManager<Module>
         registerModule(StepModule.class);
 
         // Player
+        registerModule(AutoRespawnModule.class);
         registerModule(NoFallModule.class);
 
         // Render
