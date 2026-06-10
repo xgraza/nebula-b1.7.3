@@ -258,7 +258,7 @@ public abstract class Minecraft implements Runnable {
 		this.loadScreen();
 		Keyboard.create();
 		Mouse.create();
-		this.mouseHelper = new MouseHelper(this.mcCanvas);
+		this.mouseHelper = new MouseHelper();
 
 		this.checkGLError("Pre startup");
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
