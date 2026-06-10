@@ -6,7 +6,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.io.File;
-import java.nio.file.Paths;
 import java.util.*;
 
 import ez.nebula.client.api.listener.EventBus;
@@ -28,7 +27,6 @@ import net.minecraft.src.EntityPlayerSP;
 import net.minecraft.src.EntityRenderer;
 import net.minecraft.src.EnumMovingObjectType;
 import net.minecraft.src.EnumOS2;
-import net.minecraft.src.EnumOSMappingHelper;
 import net.minecraft.src.EnumOptions;
 import net.minecraft.src.FontRenderer;
 import net.minecraft.src.GLAllocation;
@@ -88,7 +86,6 @@ import net.minecraft.src.TexturePortalFX;
 import net.minecraft.src.TextureWatchFX;
 import net.minecraft.src.TextureWaterFX;
 import net.minecraft.src.TextureWaterFlowFX;
-import net.minecraft.src.ThreadDownloadResources;
 import net.minecraft.src.ThreadSleepForever;
 import net.minecraft.src.Timer;
 import net.minecraft.src.UnexpectedThrowable;
@@ -137,7 +134,6 @@ public abstract class Minecraft implements Runnable {
 	public GuiScreen currentScreen = null;
 	public LoadingScreenRenderer loadingScreen = new LoadingScreenRenderer(this);
 	public EntityRenderer entityRenderer;
-	private ThreadDownloadResources downloadResourcesThread;
 	private int ticksRan = 0;
 	private int leftClickCounter = 0;
 	private int tempDisplayWidth;
@@ -288,11 +284,7 @@ public abstract class Minecraft implements Runnable {
 		GL11.glViewport(0, 0, this.displayWidth, this.displayHeight);
 		this.effectRenderer = new EffectRenderer(this.theWorld, this.renderEngine);
 
-		try {
-			this.downloadResourcesThread = new ThreadDownloadResources(this.mcDataDir, this);
-			this.downloadResourcesThread.start();
-		} catch (Exception var3) {
-		}
+        loadResources();
 
         Nebula.INSTANCE.init(mcDataDir);
 
@@ -305,6 +297,42 @@ public abstract class Minecraft implements Runnable {
 		}
         Display.setVSyncEnabled(true);
 	}
+
+    public void loadResources()
+    {
+        File resourcesFolder = new File(mcDataDir, "resources/");
+        if (!resourcesFolder.exists() && !resourcesFolder.mkdirs())
+        {
+            throw new RuntimeException("The working directory could not be created: " + resourcesFolder);
+        }
+        loadResource(resourcesFolder, "");
+    }
+
+    private void loadResource(File var1, String var2)
+    {
+        File[] var3 = var1.listFiles();
+        if (var3 == null)
+        {
+            return;
+        }
+
+        for (File file : var3)
+        {
+            if (file.isDirectory())
+            {
+                loadResource(file, var2 + file.getName() + "/");
+            } else
+            {
+                try
+                {
+                    installResource(var2 + file.getName(), file);
+                } catch (Exception var6)
+                {
+                    System.out.println("Failed to add " + var2 + file.getName());
+                }
+            }
+        }
+    }
 
 	private void loadScreen() throws LWJGLException {
 		ScaledResolution var1 = new ScaledResolution(this.gameSettings, this.displayWidth, this.displayHeight);
@@ -357,7 +385,6 @@ public abstract class Minecraft implements Runnable {
 		if(minecraftDir == null) {
 			minecraftDir = getAppDir("minecraft");
 		}
-        System.out.println(minecraftDir.getAbsolutePath());
 
 		return minecraftDir;
 	}
@@ -456,13 +483,6 @@ public abstract class Minecraft implements Runnable {
 			this.statFileWriter.syncStats();
 			if(this.mcApplet != null) {
 				this.mcApplet.clearApplet();
-			}
-
-			try {
-				if(this.downloadResourcesThread != null) {
-					this.downloadResourcesThread.closeMinecraft();
-				}
-			} catch (Exception var9) {
 			}
 
 			System.out.println("Stopping!");
@@ -1257,7 +1277,7 @@ public abstract class Minecraft implements Runnable {
 		System.out.println("FORCING RELOAD!");
 		this.sndManager = new SoundManager();
 		this.sndManager.loadSoundSettings(this.gameSettings);
-		this.downloadResourcesThread.reloadResources();
+		loadResources();
 	}
 
 	public boolean isMultiplayerWorld() {
