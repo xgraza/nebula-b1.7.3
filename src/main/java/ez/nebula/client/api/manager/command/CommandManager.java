@@ -7,7 +7,7 @@ import ez.nebula.client.api.listener.event.EventKey;
 import ez.nebula.client.api.logger.Logger;
 import ez.nebula.client.api.manager.ITypedManager;
 import ez.nebula.client.impl.command.FriendCommand;
-import ez.nebula.client.impl.command.GiveCommand;
+import ez.nebula.client.impl.command.GiveBlockCommand;
 import ez.nebula.client.impl.command.ToggleCommand;
 import ez.nebula.client.impl.command.VClipCommand;
 import ez.nebula.client.impl.gui.command.ConsoleGUI;
@@ -42,7 +42,7 @@ public final class CommandManager implements ITypedManager<Command>
         EventBus.subscribe(this);
 
         registerCommand(new FriendCommand());
-        registerCommand(new GiveCommand());
+        registerCommand(new GiveBlockCommand());
         registerCommand(new ToggleCommand());
         registerCommand(new VClipCommand());
     }

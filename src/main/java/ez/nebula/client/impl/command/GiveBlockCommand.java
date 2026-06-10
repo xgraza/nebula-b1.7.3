@@ -7,10 +7,10 @@ import net.minecraft.src.ItemStack;
 
 import java.util.List;
 
-@CommandManifest(aliases = {"give"},
+@CommandManifest(aliases = {"giveb", "giveblock", "gblock"},
         description = "Gives a block to the player",
         syntax = "[block id] (amount)")
-public final class GiveCommand extends Command
+public final class GiveBlockCommand extends Command
 {
     @Override
     public String dispatch(final List<String> args)
